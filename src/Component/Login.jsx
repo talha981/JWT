@@ -2,35 +2,27 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object({
-  username: Yup.string()
-    .required('Username is required')
-    .min(4, 'Username must be at least 4 characters'),
-  password: Yup.string()
-    .required('Password is required')
-    .min(3, 'Password must be at least 3 characters'),
+  username: Yup.string().required('Username is required').min(4, 'Username must be at least 4 characters'),
+  password: Yup.string().required('Password is required').min(3, 'Password must be at least 3 characters'),
 });
 
 const LoginForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     setIsSubmitting(true);
     setErrorMessage('');
     try {
       const response = await axios.post('http://localhost:5000/login', values);
-      alert('Login successful');
-      // Store the token in localStorage
       localStorage.setItem('token', response.data.token);
-      // Redirect or update state as needed
+      navigate('/dashboard');
     } catch (error) {
-      if (error.response) {
-        setErrorMessage('Error: ' + error.response.data.message);
-      } else {
-        setErrorMessage('Unexpected error occurred');
-      }
+      setErrorMessage('Error: ' + (error.response ? error.response.data.message : 'Unexpected error occurred'));
     } finally {
       setIsSubmitting(false);
     }
@@ -53,6 +45,7 @@ const LoginForm = () => {
                   type="text"
                   id="username"
                   name="username"
+                  autoComplete="username"  // Added autocomplete attribute
                   className="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full"
                 />
                 <ErrorMessage name="username" component="div" className="text-red-600 text-sm mt-1" />
@@ -64,6 +57,7 @@ const LoginForm = () => {
                   type="password"
                   id="password"
                   name="password"
+                  autoComplete="current-password"  // Added autocomplete attribute
                   className="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full"
                 />
                 <ErrorMessage name="password" component="div" className="text-red-600 text-sm mt-1" />
