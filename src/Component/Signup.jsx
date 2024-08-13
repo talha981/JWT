@@ -53,6 +53,7 @@ const SignupForm = () => {
                   type="text"
                   id="username"
                   name="username"
+                  autoComplete="username" // Added autocomplete attribute
                   className="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full"
                 />
                 <ErrorMessage name="username" component="div" className="text-red-600 text-sm mt-1" />
@@ -64,6 +65,7 @@ const SignupForm = () => {
                   type="password"
                   id="password"
                   name="password"
+                  autoComplete="new-password" // Added autocomplete attribute
                   className="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full"
                 />
                 <ErrorMessage name="password" component="div" className="text-red-600 text-sm mt-1" />

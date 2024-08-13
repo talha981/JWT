@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex-1 flex justify-center">
           <div className="text-white text-2xl font-bold">
-            <Link to="/" className="hover:text-gray-300">MyApp</Link>
+            <Link to="/" className="hover:text-gray-300 italic">Json Web Token</Link>
           </div>
         </div>
         <div className="flex-1 flex justify-center space-x-6">
